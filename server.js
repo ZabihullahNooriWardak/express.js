@@ -1,14 +1,22 @@
-const express = require('express')
-const app = express()
+// just for understanding how req and res works in anonymous function 
 
-app.get('/', function (req, res) {
-  res.send('Hello world')
-})
-app.get('/about', function (req, res) {
-    res.send('About page');
-})
+class Book{
+  constructor(title,author){
+    this.title=title;
+    this.author=author;
+  }
+  displayinfo(){
+    console.log(`Title: ${this.title} , Author: ${this.author}`);
+  }
+}
+function processBook(bookInstance,callback){
+  callback(bookInstance);
+}
 
-app.listen(3000,function(){
-    console.log('Server is running on port 3000')
-    
-});
+let myBook=new Book('secretBook','ZabihullahNoori');
+myBook.displayinfo();
+processBook(myBook,function(boo){
+  boo.author='antoher author';
+  boo.title='another title';
+})
+myBook.displayinfo();
