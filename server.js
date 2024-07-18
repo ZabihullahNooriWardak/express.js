@@ -1,22 +1,16 @@
-// just for understanding how req and res works in anonymous function 
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-class Book{
-  constructor(title,author){
-    this.title=title;
-    this.author=author;
-  }
-  displayinfo(){
-    console.log(`Title: ${this.title} , Author: ${this.author}`);
-  }
-}
-function processBook(bookInstance,callback){
-  callback(bookInstance);
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-let myBook=new Book('secretBook','ZabihullahNoori');
-myBook.displayinfo();
-processBook(myBook,function(boo){
-  boo.author='antoher author';
-  boo.title='another title';
-})
-myBook.displayinfo();
+const app = express();
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'BMI.html'));
+});
+
+app.listen(3000, function() {
+  console.log('Server started at port 3000');
+});
